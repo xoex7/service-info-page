@@ -1,0 +1,123 @@
+name: CI
+
+# Run on every pull request, every push to main, and every version tag.
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["v*.*.*"]
+
+# Least privilege for the workflow token.
+permissions:
+  contents: read
+
+env:
+  IMAGE_NAME: service-info-page
+
+jobs:
+  test:
+    name: Lint and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Static check (flake8)
+        run: flake8 app.py tests
+
+      - name: Run tests
+        run: pytest -v --junitxml=test-results.xml
+
+      - name: Keep test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ github.sha }}
+          path: test-results.xml
+
+  build:
+    name: Build versioned Docker image
+    # Runs only if lint and tests passed. A failure above blocks the image.
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out version and tags
+        id: meta
+        run: |
+          SHORT_SHA="${GITHUB_SHA::7}"
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="0.0.0-dev.${SHORT_SHA}"
+          fi
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "short_sha=$SHORT_SHA" >> "$GITHUB_OUTPUT"
+          echo "registry_image=ghcr.io/$OWNER/$IMAGE_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Build image
+        run: |
+          docker build \
+            --build-arg APP_VERSION=${{ steps.meta.outputs.version }} \
+            --label org.opencontainers.image.revision=${{ github.sha }} \
+            --label org.opencontainers.image.version=${{ steps.meta.outputs.version }} \
+            -t $IMAGE_NAME:${{ steps.meta.outputs.short_sha }} .
+
+      - name: Smoke test the image
+        run: |
+          docker run -d --name smoke -p 5000:5000 $IMAGE_NAME:${{ steps.meta.outputs.short_sha }}
+          for i in $(seq 1 15); do
+            curl -fs http://127.0.0.1:5000/health && break
+            sleep 1
+          done
+          curl -fs http://127.0.0.1:5000/health | grep '"status":"ok"'
+          docker logs smoke
+          docker rm -f smoke
+
+      - name: Save image as archive
+        run: |
+          docker save $IMAGE_NAME:${{ steps.meta.outputs.short_sha }} \
+            | gzip > image-${{ steps.meta.outputs.short_sha }}.tar.gz
+          IMAGE_ID=$(docker image inspect --format '{{.Id}}' $IMAGE_NAME:${{ steps.meta.outputs.short_sha }})
+          {
+            echo "release_version=${{ steps.meta.outputs.version }}"
+            echo "git_commit=${{ github.sha }}"
+            echo "pipeline_run=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "image_tag=$IMAGE_NAME:${{ steps.meta.outputs.short_sha }}"
+            echo "image_id=$IMAGE_ID"
+          } > build-info.txt
+          cat build-info.txt
+
+      - name: Keep image archive and build record
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image-${{ steps.meta.outputs.version }}
+          path: |
+            image-${{ steps.meta.outputs.short_sha }}.tar.gz
+            build-info.txt
+          retention-days: 90
+
+      - name: Push release image to GitHub Container Registry
+        # Only for main branch and version tags, never for pull requests.
+        if: github.event_name == 'push'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          REG=${{ steps.meta.outputs.registry_image }}
+          docker tag $IMAGE_NAME:${{ steps.meta.outputs.short_sha }} $REG:${{ steps.meta.outputs.short_sha }}
+          docker push $REG:${{ steps.meta.outputs.short_sha }}
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            docker tag $IMAGE_NAME:${{ steps.meta.outputs.short_sha }} $REG:${{ steps.meta.outputs.version }}
+            docker push $REG:${{ steps.meta.outputs.version }}
+          fi
+          docker image inspect --format '{{index .RepoDigests 0}}' $REG:${{ steps.meta.outputs.short_sha }}
