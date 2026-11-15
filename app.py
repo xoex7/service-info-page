@@ -2,9 +2,12 @@
 
 All data shown here is synthetic (fictional service, fictional contact).
 """
+import os
+
 from flask import Flask, jsonify, render_template_string
 
-VERSION = "1.0.0"
+# CI sets APP_VERSION when it builds the Docker image (e.g. 1.1.0).
+VERSION = os.environ.get("APP_VERSION", "1.0.0")
 
 SERVICE_INFO = {
     "name": "Campus Print Service",
