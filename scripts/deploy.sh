@@ -8,6 +8,7 @@ TAG="${1:?Give the image tag to deploy, e.g. 1.1.0}"
 REGISTRY_IMAGE="${REGISTRY_IMAGE:-ghcr.io/xoex7/service-info-page}"
 CONTAINER="service-info"
 BIND_ADDR="${BIND_ADDR:-127.0.0.1}"   # only listen where the lab needs it
+                                      # lab VM: BIND_ADDR=192.168.170.128 (host-only network)
 PORT="${PORT:-8080}"
 STATE_DIR="${STATE_DIR:-$HOME/.service-info}"
 mkdir -p "$STATE_DIR"
@@ -30,7 +31,10 @@ docker run -d --name "$CONTAINER" \
   -p "$BIND_ADDR:$PORT:5000" \
   "$IMAGE"
 
-if bash "$(dirname "$0")/healthcheck.sh"; then
+# Check health on the same address the port is published on.
+# (Before this fix it always checked 127.0.0.1, so BIND_ADDR=<host-only IP>
+#  reported a false "FAILED health check" even though the service was up.)
+if bash "$(dirname "$0")/healthcheck.sh" "http://$BIND_ADDR:$PORT/health"; then
   echo "$TAG" > "$STATE_DIR/current"
   echo "$(date -Is) deploy $TAG OK" >> "$STATE_DIR/history.log"
   docker image inspect --format 'Deployed image ID: {{.Id}}' "$IMAGE"
