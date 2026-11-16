@@ -13,6 +13,8 @@ SERVICE_INFO = {
     "name": "Campus Print Service",
     "support_contact": "print-support@example.com",
     "service_hours": "Sunday to Thursday, 08:00 - 16:00",
+    "location": "Main Library, Ground Floor",
+    "status": "Operational",
 }
 
 PAGE = """<!DOCTYPE html>
@@ -22,6 +24,8 @@ PAGE = """<!DOCTYPE html>
   <h1>{{ info.name }}</h1>
   <p><strong>Support contact:</strong> {{ info.support_contact }}</p>
   <p><strong>Service hours:</strong> {{ info.service_hours }}</p>
+  <p><strong>Location:</strong> {{ info.location }}</p>
+  <p><strong>Service status:</strong> {{ info.status }}</p>
   <p><strong>Version:</strong> {{ version }}</p>
 </body>
 </html>
