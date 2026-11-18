@@ -12,8 +12,8 @@ Base URL: https://github.com/xoex7/service-info-page
 | Weekly updates | `records/weekly-updates/` | All |
 | VM configuration + snapshot | `docs/environment.md` (PR: ____) | Saud |
 | Named accounts, permissions, process/service/disk checks | `docs/linux-admin.md` (PR #10) | Saud |
-| Firewall rules + connectivity check | `docs/linux-setup.md` | Abdalrhman |
-| Docker installed | `docs/linux-setup.md` | ________ |
+| Firewall rules + connectivity check | `docs/linux-setup.md` | Abdalrhman (firewall), Saud (host check) |
+| Docker installed | `docs/linux-setup.md` | Saud |
 
 ## Git and review (rubric: 8)
 | Requirement | Evidence | Owner |
