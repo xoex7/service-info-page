@@ -33,7 +33,7 @@ Base URL: https://github.com/xoex7/service-info-page
 | Failed CI run (lint or test fails, build skipped) | run link: ________ | Hamza |
 | Corrected green run | run link: ________ | Hamza |
 | Test results artifact | `test-results-<sha>` on the run page | Hamza |
-| Image artifact + `build-info.txt` for v1.0.0 | CI run #3 (tag `v1.0.0`), link: ________ | Hamza |
+| Image artifact + `build-info.txt` for v1.0.0 | [CI run #3](https://github.com/xoex7/service-info-page/actions/runs/43950973255) (tag `v1.0.0`), artifact `docker-image-1.0.0`, image ID `sha256:783bd215…` | Hamza |
 | GHCR image v1.0.0 | `ghcr.io/xoex7/service-info-page:1.0.0` | Hamza |
 | Image artifact + GHCR image for v1.1.0 | run link: ________ | ________ |
 

@@ -20,16 +20,16 @@ Port 8080 is published only on the host-only address 192.168.56.10
 
 ## Testing done
 - CI run #3 for tag `v1.0.0`: flake8 passed, 4 pytest tests passed, smoke test of `/health` passed.
-- CI run link: ________
+- CI run link: https://github.com/xoex7/service-info-page/actions/runs/43950973255
 
 ## Artifact
 | Item | Value |
 |---|---|
 | Release version | 1.0.0 (git tag `v1.0.0`) |
 | Git commit | `7699c84dbb0f0ae2ff58e9121433cccdbfe724e5` |
-| CI run | #3, ________ (link) |
+| CI run | [#3](https://github.com/xoex7/service-info-page/actions/runs/43950973255) |
 | Image | `ghcr.io/xoex7/service-info-page:1.0.0` (also `:7699c84`) |
-| Image ID (from `build-info.txt`) | `sha256:________` |
+| Image ID (from `build-info.txt`) | `sha256:783bd215eb1e938e769557128203661f14ab18364350d9714ddeea9731ce9dea` |
 
 ## Deployment plan
 Follow `docs/deployment-checklist.md`:
