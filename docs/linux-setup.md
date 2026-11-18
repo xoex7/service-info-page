@@ -17,12 +17,25 @@ sudo ufw status verbose
 ```
 The SSH rule is added before `ufw enable` so the session is not locked out.
 
-Performed by: Abdalrhman Alsamiri on 2026-11-18 (typed in the open `saud` SSH session).
-To show it under his own named account, Abdalrhman also runs
-`ssh abdulrhman@192.168.56.10`, then `id` and `sudo ufw status verbose`, and pastes it here:
+Performed by: Abdalrhman Alsamiri on 2026-11-18 (rules typed in the open `saud`
+SSH session). Re-checked from his own named account the same day:
 ```
-(abdulrhman session output)
+abdulrhman@dev-opsvm:~$ id
+uid=1001(abdulrhman) gid=1001(abdulrhman) groups=1001(abdulrhman),27(sudo),100(users),107(docker),1003(devops)
+abdulrhman@dev-opsvm:~$ sudo ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), deny (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    192.168.56.0/24            # SSH from lab network
+8080/tcp                   ALLOW IN    192.168.56.0/24            # service-info web app
 ```
+`deny (routed)` appeared after Docker was installed: Docker turns on packet
+forwarding for containers, and ufw's default for forwarded traffic is deny.
+Docker adds its own rules for published ports ahead of ufw (risk R8).
 
 `sudo ufw status verbose` output:
 ```
