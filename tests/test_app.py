@@ -23,6 +23,13 @@ def test_index_shows_service_information(client):
     assert app_module.VERSION in page
 
 
+def test_index_shows_location_and_status(client):
+    """v1.1.0 fields: the page shows the service location and status."""
+    page = client.get("/").get_data(as_text=True)
+    assert "Main Library, Ground Floor" in page
+    assert "Operational" in page
+
+
 def test_health_returns_ok(client):
     """The /health endpoint returns HTTP 200 and status ok."""
     response = client.get("/health")
