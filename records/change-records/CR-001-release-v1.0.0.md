@@ -3,9 +3,9 @@
 | Field | Value |
 |---|---|
 | Title | First deployment of the Campus Print Service page (v1.0.0) |
-| Author (proposes) | ________ |
-| Reviewer / approver | ________ (must be a different member) |
-| Date requested | ________ |
+| Author (proposes) | Saud Alharbi |
+| Reviewer / approver | Abdalrhman Alsamiri |
+| Date requested | 2026-11-18 ([issue #15](https://github.com/xoex7/service-info-page/issues/15)) |
 | Related PR(s) | #7 (app, tests, CI, Dockerfile, scripts) |
 
 ## Proposed change
@@ -47,12 +47,32 @@ check fails: `docker logs service-info`, stop the container
 snapshot `01-clean-install` if the VM itself is damaged.
 
 ## Approval
-Approved by ________ on ________ (PR review or comment link: ________)
+Approved by Abdalrhman Alsamiri on 2026-11-18 20:33 UTC, before deployment
+([issue #15 comment](https://github.com/xoex7/service-info-page/issues/15)):
+"Checked CR-001: artifact, plan and recovery look correct. Approved."
 
 ## Result
 | Item | Value |
 |---|---|
-| Deployed by / at | ________ |
-| Health check output | ________ |
-| Version shown on page | ________ |
-| Notes | ________ |
+| Snapshot before change | `02-before-v1.0.0` (2026-11-18, ~20:37 UTC) |
+| Deployed by / at | Saud Alharbi (`saud`), 2026-11-18T20:39:25Z |
+| Registry digest on VM | `ghcr.io/xoex7/service-info-page@sha256:783bd215eb1e938e769557128203661f14ab18364350d9714ddeea9731ce9dea` |
+| Deployed image ID | `sha256:783bd215eb1e938e769557128203661f14ab18364350d9714ddeea9731ce9dea`, **matches** `image_id` in `build-info.txt` of CI run #3 |
+| Health check output | `HEALTHY http://192.168.56.10:8080/health -> {"status":"ok","version":"1.0.0"}` |
+| Version shown on page | 1.0.0 (checked in a browser on the Windows host at http://192.168.56.10:8080) |
+| Notes | Deployed with the fixed `deploy.sh` from PR #9 (default `BIND_ADDR=192.168.56.10`). Change successful, no recovery needed. |
+
+### Deployment output
+```
+saud@dev-opsvm:~/service-info-page$ docker pull ghcr.io/xoex7/service-info-page:1.0.0
+...
+Digest: sha256:783bd215eb1e938e769557128203661f14ab18364350d9714ddeea9731ce9dea
+Status: Downloaded newer image for ghcr.io/xoex7/service-info-page:1.0.0
+saud@dev-opsvm:~/service-info-page$ docker image inspect --format '{{index .RepoDigests 0}}' ghcr.io/xoex7/service-info-page:1.0.0
+ghcr.io/xoex7/service-info-page@sha256:783bd215eb1e938e769557128203661f14ab18364350d9714ddeea9731ce9dea
+saud@dev-opsvm:~/service-info-page$ bash scripts/deploy.sh 1.0.0
+2026-11-18T20:39:25+00:00 Deploying ghcr.io/xoex7/service-info-page:1.0.0
+d0e5850a0c7389611bcf8b631422084293b85156a931678ae75831cb73f439ac
+2026-11-18T20:39:29+00:00 HEALTHY http://192.168.56.10:8080/health -> {"status":"ok","version":"1.0.0"}
+Deployed image ID: sha256:783bd215eb1e938e769557128203661f14ab18364350d9714ddeea9731ce9dea
+```
