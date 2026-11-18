@@ -37,7 +37,7 @@ def index():
 
 @app.route("/health")
 def health():
-    return jsonify(status="down", version=VERSION), 200
+    return jsonify(status="ok", version=VERSION), 200
 
 
 if __name__ == "__main__":
