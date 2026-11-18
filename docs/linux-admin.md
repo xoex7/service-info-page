@@ -3,13 +3,17 @@
 ## Named accounts and least privilege
 | User | UID | Groups | Role |
 |---|---|---|---|
-| saud | 1000 | sudo, devops | Linux lead, admin |
-| abdulrhman | 1001 | sudo, devops | Backup admin |
-| hamza | 1002 | devops | Developer, no admin rights |
+| saud | 1000 | sudo, devops, docker | Linux lead, admin |
+| abdulrhman | 1001 | sudo, devops, docker | Backup admin |
+| hamza | 1002 | devops, docker | Developer, no admin rights |
 
 - Every student uses a personal account (no shared logins), so actions in logs are traceable to a person.
 - Admin (sudo) is limited to two people; one admin would be a single point of failure.
 - Commands used: `adduser`, `groupadd devops`, `usermod -aG devops <user>`, `usermod -aG sudo abdulrhman`.
+- All three are in the `docker` group (added in Step 3B, `docs/linux-setup.md`) because every
+  member deploys or recovers the service. Docker group membership is root-equivalent, so it is
+  limited to these three named accounts and recorded as risk R6 in `records/risk-register.md`.
+  Verified with `id abdulrhman`: `groups=...,27(sudo),...,107(docker),1003(devops)`.
 
 ## Project directory
 ```
