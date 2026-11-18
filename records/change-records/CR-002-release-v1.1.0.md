@@ -3,8 +3,8 @@
 | Field | Value |
 |---|---|
 | Title | Show service location and status on the page (v1.1.0) |
-| Author (proposes) | Abdalrhman Alsamiri (deployer) |
-| Reviewer / approver | Hamza Alhazmi |
+| Author (proposes) | Hamza Alhazmi (deployer) |
+| Reviewer / approver | Abdalrhman Alsamiri |
 | Date requested | 2026-11-19 (approval [issue #19](https://github.com/xoex7/service-info-page/issues/19)) |
 | Related PR(s) | #8 (location and status), #9 (deploy health check uses BIND_ADDR, refuses 0.0.0.0), #13 (test for the new fields) |
 
@@ -52,7 +52,7 @@ Approved by ________ on ________ (PR review or comment link: ________)
 ## Result
 | Item | Value |
 |---|---|
-| Deployed by / at | Abdalrhman Alsamiri, ________ |
+| Deployed by / at | Hamza Alhazmi (`hamza`), ________ |
 | Health check output | ________ |
 | Version shown on page | ________ |
 | Notes | ________ |
