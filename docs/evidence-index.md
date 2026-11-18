@@ -42,10 +42,10 @@ Base URL: https://github.com/xoex7/service-info-page
 ## Release, deployment and recovery (rubric: 12)
 | Requirement | Evidence | Owner |
 |---|---|---|
-| Release mapping v1.0.0 (version, commit, run, image ID) | `records/change-records/CR-001-release-v1.0.0.md` | ________ |
+| Release mapping v1.0.0 (version, commit, run, image ID) | `records/change-records/CR-001-release-v1.0.0.md`, approval [#15](https://github.com/xoex7/service-info-page/issues/15) | Saud (deploy), Abdalrhman (approve) |
 | Release mapping v1.1.0 | `records/change-records/CR-002-release-v1.1.0.md` | ________ |
 | Deployment checklist | `docs/deployment-checklist.md` | ________ |
-| Deployment output + health check | in CR-001 / CR-002 "Result" | ________ |
+| Deployment output + health check | CR-001 "Result" (v1.0.0); CR-002 (v1.1.0) | Saud (v1.0.0) |
 | Container status, logs, health, disk, service status | ________ | ________ |
 | Controlled failure + incident update | `records/incidents/INC-001-controlled-failure.md` | ________ |
 | Rollback v1.1.0 → v1.0.0 with measured time | `records/incidents/RB-001-rollback-test.md` | ________ |
