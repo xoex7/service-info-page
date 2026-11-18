@@ -17,13 +17,15 @@ All data is synthetic.
 | `Dockerfile`, `.dockerignore` | Container image recipe |
 | `.github/workflows/ci.yml` | CI pipeline (lint → test → build → save image) |
 | `scripts/` | `deploy.sh`, `rollback.sh`, `healthcheck.sh` |
-| `docs/` | Deployment checklist, Git workflow, CI guide, release guide |
-| `records/` | Team plan, risks, change records, incidents, weekly updates |
+| `docs/` | VM environment, Linux admin, firewall/Docker, deployment checklist, Git workflow, CI guide, release guide, evidence index |
+| `records/` | Team plan, risk register, change records, incidents, weekly updates, contribution logs, references, AI disclosure |
 
 ## Prerequisites
 
-- Ubuntu 22.04/24.04 VM (or WSL Ubuntu) with `git`, `python3` (3.10+), `python3-venv`, `curl`
+- Ubuntu Server VM with `git`, `python3` (3.10+), `python3-venv`, `curl`.
+  Tested on Ubuntu Server 26.04.1 LTS, VM `dev-opsvm`, host-only IP 192.168.56.10 (`docs/environment.md`).
 - Docker Engine (`docker` command works without `sudo` for your user – see `docs/linux-setup.md`)
+- Firewall allows ports 22 and 8080 from 192.168.56.0/24 only (`docs/linux-setup.md`)
 
 ## 1. Get the code
 
@@ -86,8 +88,12 @@ Every image is built by CI and stored in GitHub Container Registry (GHCR) as
 We deploy that exact image; we never rebuild on the server.
 
 ```bash
-./scripts/deploy.sh 1.0.0
+./scripts/deploy.sh 1.0.0                              # localhost only (127.0.0.1)
+BIND_ADDR=192.168.56.10 ./scripts/deploy.sh 1.0.0      # lab VM: reachable from the Windows host
 ```
+
+In the lab we always publish on the host-only address, because ports published
+by Docker bypass the `ufw` firewall; never publish on `0.0.0.0`.
 
 The script pulls the image, starts it, runs the health check, and saves the
 current and previous versions in `~/.service-info/`.
@@ -101,6 +107,7 @@ Offline option: download the `docker-image-<version>` artifact from the CI run, 
 ```bash
 ./scripts/rollback.sh          # back to the previous version
 ./scripts/rollback.sh 1.0.0    # or a named version
+BIND_ADDR=192.168.56.10 ./scripts/rollback.sh 1.0.0   # lab VM
 ```
 
 The script prints how many seconds the rollback took. Confirm the version on the
@@ -116,3 +123,4 @@ See `docs/git-workflow.md`.
 
 Parts of the code and documentation were drafted with help from an AI assistant
 (Claude). Every team member reviewed, tested and can explain the submitted work.
+Details per member: `records/ai-assistance-disclosure.md`.
