@@ -58,7 +58,7 @@ Approved by Abdalrhman Alsamiri on 2026-11-18 21:33:55 UTC, before deployment
 | Registry digest on VM | `ghcr.io/xoex7/service-info-page@sha256:fa8dc360d10f868e90d39f9f2c2d7a11e27bfa6cfc6379f0980fd83bccea0de8` |
 | Deployed image ID | `sha256:fa8dc360d10f868e90d39f9f2c2d7a11e27bfa6cfc6379f0980fd83bccea0de8`, **matches** `image_id` in build-info of CI run #31 |
 | Health check output | `HEALTHY http://192.168.56.10:8080/health -> {"status":"ok","version":"1.1.0"}` (4 s after start) |
-| Version shown on page | 1.1.0, with Location and Service status (browser check: ________) |
+| Version shown on page | 1.1.0, plus "Location: Main Library, Ground Floor" and "Service status: Operational" (browser on the Windows host, http://192.168.56.10:8080, 2026-11-18 ~21:40 UTC) |
 | Snapshot | ⚠️ `03-after-v1.1.0`, taken ~21:37 UTC, **after** the deployment (see deviation) |
 | Outcome | Change successful, no recovery needed |
 
