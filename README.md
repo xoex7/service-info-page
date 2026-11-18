@@ -43,7 +43,7 @@ flake8 app.py tests
 pytest -v
 ```
 
-Expected output: flake8 prints nothing, and pytest ends with `4 passed`.
+Expected output: flake8 prints nothing, and pytest ends with `5 passed`.
 
 ## 3. Run locally without Docker (development only)
 

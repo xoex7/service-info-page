@@ -6,7 +6,7 @@ Runs on: every pull request, every push to `main`, every tag like `v1.0.0`.
 
 | Job | Steps | If it fails |
 |---|---|---|
-| **Lint and test** | install deps → `flake8` (static check) → `pytest` (4 tests) → upload `test-results.xml` | pipeline is red, **build job does not run**, no image is made |
+| **Lint and test** | install deps → `flake8` (static check) → `pytest` (5 tests) → upload `test-results.xml` | pipeline is red, **build job does not run**, no image is made |
 | **Build versioned Docker image** (`needs: test`) | build image with version + commit SHA labels → smoke test `/health` → `docker save` → upload `docker-image-<version>` artifact (kept 90 days) with `build-info.txt` → on push/tag also push to GHCR | no artifact |
 
 `build-info.txt` links together: release version, git commit, pipeline run URL,
