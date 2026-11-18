@@ -7,8 +7,8 @@ set -euo pipefail
 TAG="${1:?Give the image tag to deploy, e.g. 1.1.0}"
 REGISTRY_IMAGE="${REGISTRY_IMAGE:-ghcr.io/xoex7/service-info-page}"
 CONTAINER="service-info"
-BIND_ADDR="${BIND_ADDR:-127.0.0.1}"   # only listen where the lab needs it
-                                      # lab VM: BIND_ADDR=192.168.170.128 (host-only network)
+BIND_ADDR="${BIND_ADDR:-192.168.56.10}"   # only listen where the lab needs it
+                                      # lab VM: BIND_ADDR=192.168.56.10 (host-only network)
 PORT="${PORT:-8080}"
 STATE_DIR="${STATE_DIR:-$HOME/.service-info}"
 mkdir -p "$STATE_DIR"
