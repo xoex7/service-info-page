@@ -113,6 +113,21 @@ BIND_ADDR=192.168.56.10 ./scripts/rollback.sh 1.0.0   # lab VM
 The script prints how many seconds the rollback took. Confirm the version on the
 page and in `/health`.
 
+## 8. If the service is down (runbook)
+Written after the controlled failure INC-001, where the fix took 7 s but deciding
+what to do took over 2 minutes. Follow these steps in order:
+
+```bash
+bash scripts/healthcheck.sh http://192.168.56.10:8080/health   # 1. confirm: UNHEALTHY?
+docker ps -a --filter name=service-info                        # 2. Exited or missing?
+docker logs --tail 20 service-info                             # 3. why? (errors, timeouts)
+docker start service-info                                      # 4a. container exists: start it
+bash scripts/deploy.sh <current version>                       # 4b. missing or still failing: redeploy
+bash scripts/healthcheck.sh http://192.168.56.10:8080/health   # 5. confirm HEALTHY + version
+```
+If the new release itself is the problem, use the rollback in section 7.
+Record what happened in `records/incidents/` and send the instructor an incident update.
+
 ## Workflow
 
 Plan → branch → pull request → teammate review → CI passes → versioned image →

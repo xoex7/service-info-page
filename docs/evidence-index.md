@@ -46,8 +46,8 @@ Base URL: https://github.com/xoex7/service-info-page
 | Release mapping v1.1.0 | `records/change-records/CR-002-release-v1.1.0.md`, approval [#19](https://github.com/xoex7/service-info-page/issues/19) | Hamza (deploy), Abdalrhman (approve) |
 | Deployment checklist | `docs/deployment-checklist.md` | ________ |
 | Deployment output + health check | CR-001 "Result" (v1.0.0); CR-002 "Result" (v1.1.0) | Saud (v1.0.0), Hamza (v1.1.0) |
-| Container status, logs, health, disk, service status | ________ | ________ |
-| Controlled failure + incident update | `records/incidents/INC-001-controlled-failure.md` | ________ |
+| Container status, logs, health, disk, service status | `docs/observation.md` | Hamza |
+| Controlled failure + incident update | `records/incidents/INC-001-controlled-failure.md` (outage 2 min 46 s, detected in 25 s) | Hamza |
 | Rollback v1.1.0 → v1.0.0 with measured time | `records/incidents/RB-001-rollback-test.md` | ________ |
 
 ## Security, documentation and improvement (rubric: 8 + 8)
