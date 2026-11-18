@@ -37,15 +37,15 @@ Base URL: https://github.com/xoex7/service-info-page
 | Test results artifact | `test-results-<sha>` on the run page | Hamza |
 | Image artifact + `build-info.txt` for v1.0.0 | [CI run #3](https://github.com/xoex7/service-info-page/actions/runs/43950973255) (tag `v1.0.0`), artifact `docker-image-1.0.0`, image ID `sha256:783bd215…` | Hamza |
 | GHCR image v1.0.0 | `ghcr.io/xoex7/service-info-page:1.0.0` | Hamza |
-| Image artifact + GHCR image for v1.1.0 | run link: ________ | ________ |
+| Image artifact + GHCR image for v1.1.0 | [CI run #31](https://github.com/xoex7/service-info-page/actions/runs/44402045414), image ID `sha256:fa8dc360…` | Saud (release) |
 
 ## Release, deployment and recovery (rubric: 12)
 | Requirement | Evidence | Owner |
 |---|---|---|
 | Release mapping v1.0.0 (version, commit, run, image ID) | `records/change-records/CR-001-release-v1.0.0.md`, approval [#15](https://github.com/xoex7/service-info-page/issues/15) | Saud (deploy), Abdalrhman (approve) |
-| Release mapping v1.1.0 | `records/change-records/CR-002-release-v1.1.0.md` | ________ |
+| Release mapping v1.1.0 | `records/change-records/CR-002-release-v1.1.0.md`, approval [#19](https://github.com/xoex7/service-info-page/issues/19) | Hamza (deploy), Abdalrhman (approve) |
 | Deployment checklist | `docs/deployment-checklist.md` | ________ |
-| Deployment output + health check | CR-001 "Result" (v1.0.0); CR-002 (v1.1.0) | Saud (v1.0.0) |
+| Deployment output + health check | CR-001 "Result" (v1.0.0); CR-002 "Result" (v1.1.0) | Saud (v1.0.0), Hamza (v1.1.0) |
 | Container status, logs, health, disk, service status | ________ | ________ |
 | Controlled failure + incident update | `records/incidents/INC-001-controlled-failure.md` | ________ |
 | Rollback v1.1.0 → v1.0.0 with measured time | `records/incidents/RB-001-rollback-test.md` | ________ |
