@@ -55,14 +55,25 @@ Good review comment examples:
 - "What happens if `APP_VERSION` is not set? Please add a test."
 - "I ran `pytest` locally on this branch: 4 passed."
 
-## Planned pull requests
+## Pull request tracker
 
-| # | Branch | Author | Reviewer | Content |
+The brief requires **each member to author at least 2 meaningful PRs and review
+at least 2 PRs from a teammate**. A review must contain a real check, question or
+explanation. Update this table whenever a PR is opened, reviewed or merged.
+
+| PR | Title | Author | Reviewer(s) | State |
 |---|---|---|---|---|
-| 1 | `feature/app` (PR #6) | Abdalrhman | Saud | `app.py` |
-| 2 | `feature/tests` | Hamza | Saud | `tests/` |
-| 3 | `feature/dockerfile` | Abdalrhman | Saud | `Dockerfile`, `.dockerignore` |
-| 4 | `feature/ci-pipeline` | Hamza | Abdalrhman | `.github/workflows/ci.yml` |
-| 5 | `feature/deploy-scripts` | Saud | Hamza | `scripts/`, `docs/deployment-checklist.md` |
-| 6 | `docs/readme` | Saud | Abdalrhman | `README.md`, `docs/`, `records/` |
-| 7 | `demo/failing-ci` | Hamza | Saud | Deliberate failure for Step 8 (see `ci-guide.md`) |
+| #6 | Internal service information page | Abdalrhman | ________ | Closed (replaced by #7) |
+| #7 | Tests, CI pipeline, Dockerfile, deployment docs | Hamza | ________ | Merged |
+| #8 | Location and status on the page (v1.1.0) | Abdalrhman | ________ | Open |
+| #9 | deploy.sh health check uses BIND_ADDR | Abdalrhman | ________ | Open |
+| #10 | Linux administration documentation | Saud | ________ | Open |
+| #__ | Lab environment documentation | Saud | ________ | To open |
+| #__ | Records and cleanup | Saud | ________ | To open |
+| #__ | Demo: failing CI, then fix | Hamza | ________ | To open |
+
+| Member | PRs authored (merged) | PRs reviewed | Still needed |
+|---|---|---|---|
+| Saud | #10, environment, records | ________ | 2 reviews |
+| Abdalrhman | #8, #9 | ________ | 2 reviews |
+| Hamza | #7, failing-CI demo | ________ | 2 reviews |

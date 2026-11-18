@@ -27,17 +27,17 @@ fill it in, and get a teammate's approval **before** deploying.
 
 ```bash
 cd ~/service-info-page && git pull
-./scripts/deploy.sh 1.0.0
+BIND_ADDR=192.168.56.10 ./scripts/deploy.sh 1.0.0
 ```
 
 Expected output ends with:
 ```
-... HEALTHY http://127.0.0.1:8080/health -> {"status":"ok","version":"1.0.0"}
+... HEALTHY http://192.168.56.10:8080/health -> {"status":"ok","version":"1.0.0"}
 Deployed image ID: sha256:...
 ```
 
 Check the image ID matches `image_id` in `build-info.txt` from the CI run.
-Then open `http://127.0.0.1:8080/` and confirm the page shows version **1.0.0**.
+Then open `http://192.168.56.10:8080/` in the Windows browser and confirm the page shows version **1.0.0**.
 
 ## Offline option (no GHCR)
 
