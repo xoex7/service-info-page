@@ -10,6 +10,11 @@ CONTAINER="service-info"
 BIND_ADDR="${BIND_ADDR:-192.168.56.10}"   # only listen where the lab needs it
                                       # lab VM: BIND_ADDR=192.168.56.10 (host-only network)
 PORT="${PORT:-8080}"
+# Never publish on all interfaces: Docker-published ports bypass ufw (risk R8).
+if [ "$BIND_ADDR" = "0.0.0.0" ]; then
+  echo "Refusing BIND_ADDR=0.0.0.0: use 192.168.56.10 (lab) or 127.0.0.1" >&2
+  exit 1
+fi
 STATE_DIR="${STATE_DIR:-$HOME/.service-info}"
 mkdir -p "$STATE_DIR"
 
