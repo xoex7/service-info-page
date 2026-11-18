@@ -3,10 +3,10 @@
 | Field | Value |
 |---|---|
 | Title | Show service location and status on the page (v1.1.0) |
-| Author (proposes) | ________ |
-| Reviewer / approver | ________ (must be a different member) |
-| Date requested | ________ |
-| Related PR(s) | #8 (location and status), #9 (deploy health check uses BIND_ADDR) |
+| Author (proposes) | Abdalrhman Alsamiri (deployer) |
+| Reviewer / approver | Hamza Alhazmi |
+| Date requested | 2026-11-19 (approval [issue #19](https://github.com/xoex7/service-info-page/issues/19)) |
+| Related PR(s) | #8 (location and status), #9 (deploy health check uses BIND_ADDR, refuses 0.0.0.0), #13 (test for the new fields) |
 
 ## Proposed change
 Upgrade the service from v1.0.0 to v1.1.0. The page gains two fields:
@@ -19,28 +19,30 @@ No configuration or firewall change.
 
 ## Testing done
 - PR #8 CI run: passed. PR #9 CI run: passed.
-- CI run for tag `v1.1.0`: ________ (link), flake8 + ___ tests passed.
+- CI run for tag `v1.1.0`: [#31](https://github.com/xoex7/service-info-page/actions/runs/44402045414), flake8 + 5 tests passed, smoke test of `/health` passed.
 
 ## Artifact
 | Item | Value |
 |---|---|
 | Release version | 1.1.0 (git tag `v1.1.0`) |
-| Git commit | `________` |
-| CI run | #___, ________ (link) |
+| Git commit | `cdcd9d483c11131755f0e8c0f41d6fc29f1b59c6` |
+| CI run | [#31](https://github.com/xoex7/service-info-page/actions/runs/44402045414) |
 | Image | `ghcr.io/xoex7/service-info-page:1.1.0` |
-| Image ID (from `build-info.txt`) | `sha256:________` |
+| Image ID (from `build-info.txt`) | `sha256:fa8dc360d10f868e90d39f9f2c2d7a11e27bfa6cfc6379f0980fd83bccea0de8` |
 
 ## Deployment plan
-Take a VM snapshot first (name: `02-before-v1.1.0`), then:
+Take a VM snapshot first (name: `03-before-v1.1.0`), then:
 ```bash
 cd ~/service-info-page && git pull
-BIND_ADDR=192.168.56.10 ./scripts/deploy.sh 1.1.0
+docker pull ghcr.io/xoex7/service-info-page:1.1.0
+docker image inspect --format '{{index .RepoDigests 0}}' ghcr.io/xoex7/service-info-page:1.1.0
+bash scripts/deploy.sh 1.1.0          # BIND_ADDR defaults to 192.168.56.10
 ```
 
 ## Recovery plan
 ```bash
-BIND_ADDR=192.168.56.10 ./scripts/rollback.sh 1.0.0
-./scripts/healthcheck.sh http://192.168.56.10:8080/health
+bash scripts/rollback.sh 1.0.0
+bash scripts/healthcheck.sh http://192.168.56.10:8080/health
 ```
 Confirm the page and `/health` show version 1.0.0. Record the rollback time.
 
@@ -50,7 +52,7 @@ Approved by ________ on ________ (PR review or comment link: ________)
 ## Result
 | Item | Value |
 |---|---|
-| Deployed by / at | ________ |
+| Deployed by / at | Abdalrhman Alsamiri, ________ |
 | Health check output | ________ |
 | Version shown on page | ________ |
 | Notes | ________ |
