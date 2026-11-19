@@ -48,7 +48,7 @@ Base URL: https://github.com/xoex7/service-info-page
 | Deployment output + health check | CR-001 "Result" (v1.0.0); CR-002 "Result" (v1.1.0) | Saud (v1.0.0), Hamza (v1.1.0) |
 | Container status, logs, health, disk, service status | `docs/observation.md` | Hamza |
 | Controlled failure + incident update | `records/incidents/INC-001-controlled-failure.md` (outage 2 min 46 s, detected in 25 s) | Hamza |
-| Rollback v1.1.0 → v1.0.0 with measured time | `records/incidents/RB-001-rollback-test.md` | ________ |
+| Rollback v1.1.0 → v1.0.0 with measured time | `records/incidents/RB-001-rollback-test.md` (2 seconds, image ID verified) | Abdalrhman |
 
 ## Security, documentation and improvement (rubric: 8 + 8)
 | Requirement | Evidence | Owner |
