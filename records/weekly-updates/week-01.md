@@ -1,7 +1,7 @@
-# Weekly Update – Week 1 (draft, check before sending)
+# Weekly Update – Week 1
 
 **To:** Instructor (stakeholder) **From:** Saud Alharbi, Abdalrhman Alsamiri, Hamza Alhazmi
-**Date sent:** ________ **Channel:** ________
+**Status:** written, not sent to the instructor (see note in `week-02.md`)
 
 ## Completed
 - Team plan, roles, risk register and task board set up; `main` protected (PR + 1 approval).
