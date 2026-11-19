@@ -53,8 +53,10 @@ intentional, so the restart policy does not start it again until someone runs
 `docker start` (or the Docker service restarts). A real crash (non-zero exit) would
 have been restarted automatically.
 
-## Stakeholder update (sent to the instructor)
-Sent at ________ via ________ by ________. Text:
+## Stakeholder update (included as a labelled simulation)
+As the brief allows, this incident update is included here as clearly labelled
+simulation evidence instead of being sent through the course channel. Written by
+Hamza Alhazmi on 2026-11-18. Text:
 
 > **[SIMULATION] Incident update – Campus Print Service**
 > As planned, we stopped the service at 21:47:48 UTC as a recovery exercise.
