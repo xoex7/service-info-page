@@ -9,4 +9,5 @@ Lead role: Linux & VM. Check every line before submitting; this log must be your
 | 2026-11-17 | Accounts, permissions (issue #2) | Users `saud`, `abdulrhman`, `hamza`; group `devops`; `/opt/service-info` mode 2770; sudo for 2 members | `docs/linux-admin.md` (PR #10) | Found `saud` in `lxd` group (unneeded root-level access) | Firewall and Docker |
 | 2026-11-18 | Docker and firewall check (Step 3B) | Connectivity check from the Windows host (22 allowed, 3306 blocked); Docker 29.1.3 installed, team accounts in `docker` group. Firewall rules were applied by Abdalrhman | `docs/linux-setup.md` | – | Deploy v1.0.0 (CR-001) |
 | 2026-11-18 | Deploy v1.0.0 (CR-001) | Snapshot `02-before-v1.0.0`; pulled CI image, digest matches build-info; deployed with `deploy.sh`, health check HEALTHY, page shows 1.0.0 | CR-001, [issue #15](https://github.com/xoex7/service-info-page/issues/15) | – | Release v1.1.0 (CR-002) |
+| 2026-11-19 | Part G improvement | Shared deployment history (PR #23); deployed 1.0.0 in the after-test | `docs/improvement.md` | Found a second bug (re-deploy overwrote `previous`) | Report |
 | | | | | | |
