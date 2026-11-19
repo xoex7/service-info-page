@@ -96,7 +96,9 @@ In the lab we always publish on the host-only address, because ports published
 by Docker bypass the `ufw` firewall; never publish on `0.0.0.0`.
 
 The script pulls the image, starts it, runs the health check, and saves the
-current and previous versions in `~/.service-info/`.
+current and previous versions, plus who deployed, in `/opt/service-info/state/`.
+This history is shared by the `devops` group, so any team member can run
+`rollback.sh` after someone else deployed (`docs/improvement.md`).
 Follow `docs/deployment-checklist.md` for every deployment.
 
 Offline option: download the `docker-image-<version>` artifact from the CI run, then

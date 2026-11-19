@@ -56,7 +56,8 @@ Base URL: https://github.com/xoex7/service-info-page
 | Synthetic data only | `app.py` (`SERVICE_INFO`) | All |
 | Secret handling (no secrets in Git; only `GITHUB_TOKEN`) | `.gitignore`, `ci.yml` `permissions:` | Hamza |
 | Least privilege (accounts, CI token, non-root container) | `docs/linux-admin.md`, `ci.yml`, `Dockerfile` | All |
-| Improvement: before / after | [PR #13](https://github.com/xoex7/service-info-page/pull/13): before, removing the location line still passed CI (4 tests); after, the new test fails (`1 failed, 4 passed`) | Hamza |
+| Improvement (main): shared deployment history, before / after | `docs/improvement.md` (before = RB-001: rollback without a version failed for another member) | All |
+| Improvement (additional): test for location/status | [PR #13](https://github.com/xoex7/service-info-page/pull/13): before, removing the location line still passed CI (4 tests); after, the new test fails (`1 failed, 4 passed`) | Hamza |
 | README followed by a teammate | ________ | ________ |
 | References and AI disclosure | `records/references.md`, `records/ai-assistance-disclosure.md` | All |
 | Contribution logs | `records/contribution-logs/` | Each member |
